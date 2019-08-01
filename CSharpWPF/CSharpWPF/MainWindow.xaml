@@ -5,8 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:CSharpWPF"
         mc:Ignorable="d"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Grid.DataContext>
+            <local:MainWindowVM/>
+        </Grid.DataContext>
+        <Grid HorizontalAlignment="Left" Height="254" Margin="38,86,0,0" VerticalAlignment="Top" Width="266">
+            <TextBox HorizontalAlignment="Left" Height="23" Margin="65,79,0,0" TextWrapping="Wrap" Text="{Binding Value, ElementName=slider}" VerticalAlignment="Top" Width="120"/>
+            <Slider x:Name="slider" HorizontalAlignment="Left" Margin="27,152,0,0" VerticalAlignment="Top" Height="25" Width="206" IsSnapToTickEnabled="True"/>
+            <TextBlock HorizontalAlignment="Left" Margin="63,25,0,0" TextWrapping="Wrap" Text="ツール同士のバインディング" VerticalAlignment="Top"/>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="254" Margin="309,86,0,0" VerticalAlignment="Top" Width="258">
+            <TextBox HorizontalAlignment="Left" Height="24" Margin="74,82,0,0" TextWrapping="Wrap" Text="{Binding Cnt, Mode=OneWay}" VerticalAlignment="Top" Width="120"/>
+            <TextBlock HorizontalAlignment="Left" Margin="50,30,0,0" TextWrapping="Wrap" Text="DataContextを使ったバインディング" VerticalAlignment="Top"/>
+            <Button x:Name="BT_countUp" Content="Count Up" HorizontalAlignment="Left" Margin="93,145,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ClickCommand, Mode=OneWay}"/>
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="Loaded">
+                    <i:InvokeCommandAction Command="{Binding LoadedCommand}" CommandParameter="{Binding }"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+        </Grid>
+        <Grid HorizontalAlignment="Left" Height="254" Margin="572,86,0,0" VerticalAlignment="Top" Width="192">
+        <TextBlock HorizontalAlignment="Left" Margin="62,36,0,0" TextWrapping="Wrap" Text="MouseMove" VerticalAlignment="Top"/>
+            <Rectangle Fill="#FFF4F4F5" HorizontalAlignment="Left" Height="88" Margin="50,92,0,0" Stroke="Black" VerticalAlignment="Top" Width="96">
+                <i:Interaction.Triggers>
+                    <i:EventTrigger EventName="MouseMove">
+                        <local:MouseCoordinatesAction Command="{Binding MouseMoveCommand}"/>
+                    </i:EventTrigger>
+                </i:Interaction.Triggers>
+            </Rectangle>
+        </Grid>
     </Grid>
 </Window>
